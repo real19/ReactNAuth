@@ -3,17 +3,20 @@ import { View, Text , StatusBar} from 'react-native';
 import { Card, CardSection, Input, Button, Spinner } from './common';
 import {connect} from 'react-redux';
 import {emailChanged, passwordChanged, loginUser, clearAll} from '../actions';
-import SignupForm from './SignupForm'
+import SignupForm from './SignupForm';
+import firebase from 'firebase';
 
 
 class LoginForm extends Component {
 
     componentDidMount() {
         StatusBar.setHidden(true);
+
      }
 
     static navigationOptions = {
         title: 'WELCOME',
+        headerLeft:null,
     
       };
 
@@ -26,8 +29,8 @@ class LoginForm extends Component {
     }
 
     onLoginButtonPress(){
-        const {email, password } = this.props;
-        this.props.loginUser({email, password});
+        const {email, password , navigation} = this.props;
+        this.props.loginUser({email, password, navigation});
     }
 
     onSignupButtonPress(){
@@ -58,20 +61,29 @@ class LoginForm extends Component {
         <View> 
             <Card>
                 <CardSection>
-                    <Input label="Email" placeholder="Email" 
-                    onChangeText={this.onEmailChange.bind(this)} value = {this.props.email}/>
+                    <Input 
+                    label="Email" 
+                    placeholder="Email" 
+                    onChangeText={this.onEmailChange.bind(this)} 
+                    value = {this.props.email}/>
                 </CardSection>
 
                 <CardSection>
-                    <Input secureTextEntry label="Password" placeholder="Password" 
-                    onChangeText={this.onPasswordChange.bind(this)} value = {this.props.password}/>
+                    <Input 
+                    secureTextEntry 
+                    label="Password" 
+                    placeholder="Password" 
+                    onChangeText={this.onPasswordChange.bind(this)} 
+                    value = {this.props.password}/>
                 </CardSection>
                 <Text style={styles.errorTextStyle}>{this.props.error}</Text>
                 <CardSection>
                     {this.renderButton()}
                 </CardSection>
                 <CardSection>
-                     <Button onPress = {this.onSignupButtonPress.bind(this)}> Don't have an account? Click here to Signup</Button>
+                     <Button 
+                     onPress = {this.onSignupButtonPress.bind(this)}> 
+                     Don't have an account? Click here to Signup</Button>
                 </CardSection>
             </Card>
             </View>

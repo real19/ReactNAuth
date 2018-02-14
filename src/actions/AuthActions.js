@@ -9,6 +9,7 @@ import {
   SIGNUP_USER, 
   CLEAR_ALL  } from './types'
 import firebase from 'firebase';
+import {NavigationActions} from 'react-navigation';
 
 export const clearAll = () =>{
   return {
@@ -33,12 +34,12 @@ export const passwordChanged = (text) => {
     };
   };
 
-export const loginUser = ({ email, password }) => {
+export const loginUser = ({ email, password, navigation }) => {
     return (dispatch) => {
       dispatch({ type: LOGIN_USER });
   
       firebase.auth().signInWithEmailAndPassword(email, password)
-        .then(user => loginUserSuccess(dispatch, user))
+        .then(user => loginUserSuccess(dispatch, user, navigation))
         .catch((e) => {
           
           loginUserFail(dispatch, e.message);
@@ -51,19 +52,21 @@ export const loginUser = ({ email, password }) => {
     dispatch({ type: LOGIN_USER_FAIL , payload:message});
   };
   
-  const loginUserSuccess = (dispatch, user) => {
+  const loginUserSuccess = (dispatch, user, navigation) => {
     dispatch({
       type: LOGIN_USER_SUCCESS,
       payload: user
     });
+
+    navigation.goBack()
   };
 
-  export const signupUser = ({ email, password }) => {
+  export const signupUser = ({ email, password , navigation}) => {
     return (dispatch) => {
       dispatch({ type: SIGNUP_USER });
   
       firebase.auth().createUserWithEmailAndPassword(email, password)
-            .then(user => signupUserSuccess(dispatch, user))
+            .then(user => signupUserSuccess(dispatch, user, navigation))
             .catch((e) => {
                signupUserFail(dispatch, e.message)
             });
@@ -75,11 +78,22 @@ export const loginUser = ({ email, password }) => {
     dispatch({ type: SIGNUP_USER_FAIL,  payload:message});
   };
   
-  const signupUserSuccess = (dispatch, user) => {
+  const signupUserSuccess = (dispatch, user, navigation) => {
     dispatch({
       type: SIGNUP_USER_SUCCESS,
       payload: user
     });
+
+    const resetAction = NavigationActions.reset({
+      index: 0,
+      key: null,
+      actions: [
+          NavigationActions.navigate({routeName: 'Tabs'})
+      ]
+    });
+  
+    navigation.dispatch(resetAction); // Triggered by a button press
+  
   };
   
  

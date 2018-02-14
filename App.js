@@ -9,12 +9,17 @@ import {createStore, applyMiddleware} from 'redux';
 import { Provider } from 'react-redux';
 import ReduxThunk from 'redux-thunk';
 import reducers from './src/reducers';
+
 import firebase from 'firebase';
-import LoginForm from './src/components/LoginForm'
-import SignupForm from './src/components/SignupForm'
+import LoginForm from './src/components/LoginForm';
+import SignupForm from './src/components/SignupForm';
+import ItemList from './src/components/ItemList';
+import MessageList from './src/components/MessageList';
+
+import FontAwesome, { Icons } from 'react-native-fontawesome';
 
 import {
-  StackNavigator,
+  StackNavigator, TabNavigator
 } from 'react-navigation';
 
 
@@ -40,11 +45,33 @@ export default class App extends Component<Props> {
 
   render() {
     const store = createStore(reducers, {}, applyMiddleware(ReduxThunk))
+
+
+  const Tabs = TabNavigator({
+
+    MessageList: {
+      screen: MessageList,
+      navigationOptions: {
+        tabBarLabel:'',
+        tabBarIcon: <FontAwesome style={{fontSize: 22}}>{Icons.listUl}</FontAwesome>
+        //)
+      },
+    },
+      Feed: {
+        screen: ItemList,
+        navigationOptions: {
+          tabBarLabel:'',
+        tabBarIcon: <FontAwesome style={{fontSize: 22}}>{Icons.bullseye}</FontAwesome>
+        },
+      },
+    });
    
 
   const RootNavigator = StackNavigator({
+    Tabs: { screen: Tabs },
     LoginForm: { screen: LoginForm },
     SignupForm: { screen: SignupForm },
+    ItemList: { screen: ItemList },
   },{
     mode: 'modal',
     headerMode: 'screen',

@@ -25,9 +25,9 @@ class SignupForm extends Component {
     }
 
     onSignUpButtonPress(){
-        const {email, password } = this.props;
+        const {email, password, navigation } = this.props;
 
-        this.props.signupUser({email, password});
+        this.props.signupUser({email, password, navigation});
 
     }
     onCancelButtonPress(){
