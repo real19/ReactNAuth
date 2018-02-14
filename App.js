@@ -17,6 +17,7 @@ import ItemList from './src/components/ItemList';
 import MessageList from './src/components/MessageList';
 
 import FontAwesome, { Icons } from 'react-native-fontawesome';
+import {Text} from 'react-native';
 
 import {
   StackNavigator, TabNavigator
@@ -47,23 +48,27 @@ export default class App extends Component<Props> {
     const store = createStore(reducers, {}, applyMiddleware(ReduxThunk))
 
 
-  const Tabs = TabNavigator({
-
-    MessageList: {
+  const Tabs = TabNavigator(
+    
+    {
+      MessageList: {
       screen: MessageList,
       navigationOptions: {
-        tabBarLabel:'',
-        tabBarIcon: <FontAwesome style={{fontSize: 22}}>{Icons.listUl}</FontAwesome>
+        tabBarLabel:'Message List',
+        tabBarIcon: <FontAwesome style={{color: 'red'}}>{Icons.listOl}</FontAwesome>
         //)
       },
     },
       Feed: {
         screen: ItemList,
         navigationOptions: {
-          tabBarLabel:'',
-        tabBarIcon: <FontAwesome style={{fontSize: 22}}>{Icons.bullseye}</FontAwesome>
-        },
-      },
+          tabBarLabel:'Item List',
+          tabBarIcon: ({activeTintColor}) => <FontAwesome style={{color: 'red'}}>{Icons.puzzlePiece}</FontAwesome>
+        }
+      }
+    },
+     {
+      tabBarOptions: { activeTintColor:'blue', }
     });
    
 
@@ -89,7 +94,7 @@ export default class App extends Component<Props> {
 
     return (
     <Provider store ={store}>
-        <RootNavigator/>
+        <Tabs/>
       </Provider>
     );
   }
