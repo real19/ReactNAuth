@@ -12,13 +12,17 @@ class ListItem extends Component {
     const { name } = this.props.employee;
 
     return (
-      <TouchableWithoutFeedback onPress={this.onRowPress.bind(this)}>
+      <TouchableWithoutFeedback 
+        onPress={this.onRowPress.bind(this)}>
+        <View style={{backgroundColor:'#0072C6', 
+        flex: 1, 
+         margin:10,
+          borderRadius:10 }}>
         <View>
-          <CardSection>
             <Text style={styles.titleStyle}>
               {name}
             </Text>
-          </CardSection>
+            </View>
         </View>
       </TouchableWithoutFeedback>
     );
@@ -27,8 +31,10 @@ class ListItem extends Component {
 
 const styles = {
   titleStyle: {
-    fontSize: 18,
-    paddingLeft: 15
+    fontSize: 14,
+    padding: 10,
+    color:'white',
+    flex:1
   }
 };
 

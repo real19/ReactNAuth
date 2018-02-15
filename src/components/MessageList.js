@@ -1,22 +1,28 @@
 import React, { Component } from 'react';
-import { ListView, View, Text, StatusBar, TextInput, StyleSheet } from 'react-native';
-import { Card, CardSection, Input, Button, Spinner } from './common';
+import { ListView, View, Text, StatusBar, TouchableOpacity, TextInput, StyleSheet } from 'react-native';
+import { Card, CardSection, Input, Spinner, Header } from './common';
+import { Button } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { employeeUpdate, employeeCreate, employeesFetch, emailChanged } from '../actions';
 import _ from 'lodash';
 import firebase from 'firebase';
 import ListItem from './ListItem';
+import Icon from 'react-native-fa-icons';
+
 
 class MessageList extends Component {
 
+  
+
   componentWillMount() {
- 
-    firebase.auth().onAuthStateChanged((user) =>{
+
+    firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         // User is signed in.
         this.props.employeesFetch();
       } else {
         // No user is signed in.
+        this.props.navigation.navigate('LoginForm');
       }
     });
 
@@ -41,15 +47,9 @@ class MessageList extends Component {
     this.dataSource = ds.cloneWithRows(employees);
   }
 
-  
+
 
   componentDidMount() {
-
-   
-
-    if (!this.props.user) {
-      this.props.navigation.navigate('LoginForm')
-    }
 
   }
 
@@ -57,6 +57,7 @@ class MessageList extends Component {
     const { name } = this.props;
 
     this.props.employeeCreate({ name });
+    this.refs.chatList.scrollTo({y:this.refs.chatList.height})
   }
 
   renderRow(employee) {
@@ -66,30 +67,52 @@ class MessageList extends Component {
   render() {
 
     return (
-      <View>
-        <CardSection>
-          <Text>Messages</Text>
+      <View style={{backgroundColor:'white', flex:1, alignContent:'flex-start'}} >
 
-        </CardSection>
 
-        <Card>
-          <TextInput label="Add New Item"
-            placeholder="Add New Item"
+        <View style={{ flex: 29, marginBottom: 10 }}>
+          <ListView ref='chatList'
+            enableEmptySections
+            dataSource={this.dataSource}
+            renderRow={this.renderRow}
+          />
+        </View>        
+        
+        <View style={{ flex: 1, 
+                      padding: 10, 
+                      flexDirection: 'row',
+                      marginBottom:10 , 
+                      alignItems: 'center', 
+                      backgroundColor:'transparent' }} >
+        <View style={{ flex: 1, 
+                    flexDirection: 'row', 
+                    alignItems: 'center', 
+                    borderColor:'lightgray', 
+                    borderRadius:20,
+                    borderWidth:1, }} >
+          <TextInput
+           style={{ flex: 8, 
+                    margin: 2, 
+                    padding:10,
+                    height: 44 }}
+            placeholder="Whats on your mind ..."
             value={this.props.name}
             onChangeText={value => this.props.employeeUpdate({ prop: 'name', value })} />
 
-        </Card>
+          <TouchableOpacity style={{ 
+                                    flex: 1, 
+                                    padding:10, 
+                                    backgroundColor:'transparent' , 
+                                    borderRadius:10 
+            }} onPress={this.onButtonPress.bind(this)}>
+            <Text style={{ color: 'white'}}>
+            <Icon style= {{ color:'gray', 
+                            fontSize:28}}
+                   name='sign-out' /></Text>
+          </TouchableOpacity>
+          </View>
+        </View>
 
-        <CardSection>
-          <Button onPress={this.onButtonPress.bind(this)}>Add</Button>
-        </CardSection>
-        <Card>
-        <ListView
-        enableEmptySections
-        dataSource={this.dataSource}
-        renderRow={this.renderRow}
-      />
-        </Card>
       </View>
     );
 
@@ -109,7 +132,7 @@ const mapStateToProps = (state) => {
   const { name } = state.employeeForm;
   const employees = _.map(state.employees, (val, uid) => {
 
-    let employeeArray =  { ...val, uid }
+    let employeeArray = { ...val, uid }
     console.log(employeeArray);
     return employeeArray;
   });

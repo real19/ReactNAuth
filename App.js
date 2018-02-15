@@ -9,7 +9,7 @@ import {createStore, applyMiddleware} from 'redux';
 import { Provider } from 'react-redux';
 import ReduxThunk from 'redux-thunk';
 import reducers from './src/reducers';
-import {RootNavigator} from './Router';
+import {RootNavigator, Tabs} from './Router';
 import config from './Firebase';
 import firebase from 'firebase';
 
