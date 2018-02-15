@@ -15,8 +15,9 @@ import LoginForm from './src/components/LoginForm';
 import SignupForm from './src/components/SignupForm';
 import ItemList from './src/components/ItemList';
 import MessageList from './src/components/MessageList';
+import Icon from 'react-native-fa-icons';
 
-import FontAwesome, { Icons } from 'react-native-fontawesome';
+//import FontAwesome, { Icons } from 'react-native-fontawesome';
 import {Text} from 'react-native';
 
 import {
@@ -55,20 +56,20 @@ export default class App extends Component<Props> {
       screen: MessageList,
       navigationOptions: {
         tabBarLabel:'Message List',
-        tabBarIcon: <FontAwesome style={{color: 'red'}}>{Icons.listOl}</FontAwesome>
+        tabBarIcon: <Icon style= {{color:'red', fontSize:28}} name='comments' />
         //)
       },
     },
       Feed: {
-        screen: ItemList,
+        screen: ItemList,activeTintColor:'purple',
         navigationOptions: {
           tabBarLabel:'Item List',
-          tabBarIcon: ({activeTintColor}) => <FontAwesome style={{color: 'red'}}>{Icons.puzzlePiece}</FontAwesome>
+          tabBarIcon: ({activeTintColor}) =>  <Icon style= {{color:'green', fontSize:28}} name='assistive-listening-systems' />
         }
       }
     },
      {
-      tabBarOptions: { activeTintColor:'blue', }
+      tabBarOptions: { activeTintColor:'purple', }
     });
    
 

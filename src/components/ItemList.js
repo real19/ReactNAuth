@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import { View, Text , StatusBar, TextInput, Form} from 'react-native';
 import { Card, CardSection, Input, Button, Spinner } from './common';
 import {connect} from 'react-redux';
-
+import { employeeUpdate, employeeCreate } from '../actions';
  class ItemList extends Component {
 
 render(){

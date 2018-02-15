@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import { ListView, View, Text , StatusBar, TextInput, StyleSheet} from 'react-native';
 import { Card, CardSection, Input, Button, Spinner } from './common';
 import {connect} from 'react-redux';
+import { employeeUpdate, employeeCreate, employeesFetch } from '../actions';
 
 class MessageList extends Component {
 
@@ -41,6 +42,12 @@ class MessageList extends Component {
     
 }
 
+onButtonPress() {
+    const { name, phone, shift } = this.props;
+
+    this.props.employeeCreate({ name, phone, shift: shift || 'Monday' });
+  }
+
 render(){
     
     return (
@@ -56,7 +63,7 @@ render(){
 </Card>
 
 <CardSection>
-<Button>Send</Button>
+<Button>Add</Button>
 </CardSection>
 <Card>
 <ListView
@@ -76,11 +83,6 @@ const styles = StyleSheet.create({
       flex: 1,
       marginTop: 20,
     },
-    separator: {
-        flex: 1,
-        height: StyleSheet.hairlineWidth,
-        backgroundColor: '#8E8E8E',
-      },
   });
 
 const mapStateToProps = ({ auth }) => {
