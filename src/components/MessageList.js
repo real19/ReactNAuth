@@ -3,6 +3,7 @@ import { ListView, View, Text , StatusBar, TextInput, StyleSheet} from 'react-na
 import { Card, CardSection, Input, Button, Spinner } from './common';
 import {connect} from 'react-redux';
 import { employeeUpdate, employeeCreate, employeesFetch } from '../actions';
+import _ from 'lodash';
 
 class MessageList extends Component {
 
@@ -43,9 +44,9 @@ class MessageList extends Component {
 }
 
 onButtonPress() {
-    const { name, phone, shift } = this.props;
+    const { name } = this.props;
 
-    this.props.employeeCreate({ name, phone, shift: shift || 'Monday' });
+    this.props.employeeCreate({ name });
   }
 
 render(){
@@ -58,12 +59,15 @@ render(){
     </CardSection>
 
 <Card>
-<TextInput label="Add New Item" placeholder="Add New Item" />
+<TextInput label="Add New Item" 
+            placeholder="Add New Item" 
+             value={this.props.name}
+            onChangeText={value => this.props.employeeUpdate({ prop: 'name', value })} />
 
 </Card>
 
 <CardSection>
-<Button>Add</Button>
+<Button onPress={this.onButtonPress.bind(this)}>Add</Button>
 </CardSection>
 <Card>
 <ListView
@@ -85,11 +89,16 @@ const styles = StyleSheet.create({
     },
   });
 
-const mapStateToProps = ({ auth }) => {
-    const { email, password, error, loading, user } = auth;
-    return { email, password, error, loading, user };
+const mapStateToProps = (state) => {
+    const { user } = state.auth;
+    const { name } = state.employeeForm;
+    const employees = _.map(state.employees, (val, uid) => {
+        return { ...val, uid };
+    });
+  
+    return { user, name, employees };
   };
   
-  export default connect(mapStateToProps, null)(MessageList);
   
-
+  export default connect(mapStateToProps, { employeeUpdate, employeeCreate, employeesFetch  })(MessageList);
+  

@@ -1,5 +1,6 @@
 import firebase from 'firebase';
 import {
+  EMPLOYEE_UPDATE,
   EMPLOYEE_CREATE,
   EMPLOYEES_FETCH_SUCCESS,
   EMPLOYEE_SAVE_SUCCESS
