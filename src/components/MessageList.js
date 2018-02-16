@@ -12,7 +12,7 @@ import Icon from 'react-native-fa-icons';
 
 class MessageList extends Component {
 
-  
+
 
   componentWillMount() {
 
@@ -44,7 +44,7 @@ class MessageList extends Component {
       rowHasChanged: (r1, r2) => r1 !== r2
     });
 
-    this.dataSource = ds.cloneWithRows(employees);
+    this.dataSource = ds.cloneWithRows(employees.reverse());
   }
 
 
@@ -57,7 +57,7 @@ class MessageList extends Component {
     const { name } = this.props;
 
     this.props.employeeCreate({ name });
-    this.refs.chatList.scrollTo({y:this.refs.chatList.height})
+    this.refs.chatList.scrollTo({ y: this.refs.chatList.height })
   }
 
   renderRow(employee) {
@@ -67,50 +67,60 @@ class MessageList extends Component {
   render() {
 
     return (
-      <View style={{backgroundColor:'white', flex:1, alignContent:'flex-start'}} >
+      <View style={{ backgroundColor: 'white', flex: 1, alignContent: 'flex-start',  }} >
 
 
-        <View style={{ flex: 29, marginBottom: 10 }}>
+       
+
+        <View style={{
+          flex: 1,
+          padding: 10,
+          flexDirection: 'row',
+          marginTop: 10,
+          alignItems: 'center',
+          backgroundColor: 'transparent'
+        }} >
+          <View style={{
+            flex: 1,
+            flexDirection: 'row',
+            alignItems: 'center',
+            borderColor: 'lightgray',
+            borderRadius: 20,
+            borderWidth: 1,
+          }} >
+            <TextInput
+              style={{
+                flex: 8,
+                margin: 2,
+                padding: 10,
+                height: 44
+              }}
+              placeholder="Whats on your mind ..."
+              value={this.props.name}
+              onChangeText={value => this.props.employeeUpdate({ prop: 'name', value })} />
+
+            <TouchableOpacity style={{
+              flex: 1,
+              padding: 10,
+              backgroundColor: 'transparent',
+              borderRadius: 10
+            }} onPress={this.onButtonPress.bind(this)}>
+              <Text style={{ color: 'white' }}>
+                <Icon style={{
+                  color: 'gray',
+                  fontSize: 28
+                }}
+                  name='sign-out' /></Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+
+        <View style={{ flex: 29, marginBottom: 10,  }}>
           <ListView ref='chatList'
             enableEmptySections
             dataSource={this.dataSource}
             renderRow={this.renderRow}
           />
-        </View>        
-        
-        <View style={{ flex: 1, 
-                      padding: 10, 
-                      flexDirection: 'row',
-                      marginBottom:10 , 
-                      alignItems: 'center', 
-                      backgroundColor:'transparent' }} >
-        <View style={{ flex: 1, 
-                    flexDirection: 'row', 
-                    alignItems: 'center', 
-                    borderColor:'lightgray', 
-                    borderRadius:20,
-                    borderWidth:1, }} >
-          <TextInput
-           style={{ flex: 8, 
-                    margin: 2, 
-                    padding:10,
-                    height: 44 }}
-            placeholder="Whats on your mind ..."
-            value={this.props.name}
-            onChangeText={value => this.props.employeeUpdate({ prop: 'name', value })} />
-
-          <TouchableOpacity style={{ 
-                                    flex: 1, 
-                                    padding:10, 
-                                    backgroundColor:'transparent' , 
-                                    borderRadius:10 
-            }} onPress={this.onButtonPress.bind(this)}>
-            <Text style={{ color: 'white'}}>
-            <Icon style= {{ color:'gray', 
-                            fontSize:28}}
-                   name='sign-out' /></Text>
-          </TouchableOpacity>
-          </View>
         </View>
 
       </View>
