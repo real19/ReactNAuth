@@ -16,7 +16,7 @@ import Icon from 'react-native-fa-icons';
 render(){
     
     return (
-    <View style={{backgroundColor:'white', flex:1}}>
+        <View style={{ backgroundColor: 'white', flex: 1, alignContent: 'center',  }} >
         <CardSection>
     <Card>
     <TouchableOpacity onPress={this.onLoginButtonPress.bind(this)}>
