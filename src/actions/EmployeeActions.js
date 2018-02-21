@@ -1,4 +1,7 @@
+import Realm from 'realm';
 import firebase from 'firebase';
+import {Conversation, ChatMessage, User} from './../../Realmer'
+
 import {
   EMPLOYEE_UPDATE,
   EMPLOYEE_CREATE,

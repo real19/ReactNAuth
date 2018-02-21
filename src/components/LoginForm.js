@@ -64,6 +64,7 @@ class LoginForm extends Component {
                     <Input 
                     label="Email" 
                     placeholder="Email" 
+                    autoCapitalize = "none"
                     onChangeText={this.onEmailChange.bind(this)} 
                     value = {this.props.email}/>
                 </CardSection>
@@ -72,6 +73,7 @@ class LoginForm extends Component {
                     <Input 
                     secureTextEntry 
                     label="Password" 
+                    autoCapitalize = "none"
                     placeholder="Password" 
                     onChangeText={this.onPasswordChange.bind(this)} 
                     value = {this.props.password}/>

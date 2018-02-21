@@ -8,6 +8,7 @@ import _ from 'lodash';
 import firebase from 'firebase';
 import ListItem from './ListItem';
 import Icon from 'react-native-fa-icons';
+import Realm from 'realm';
 
 
 class MessageList extends Component {
@@ -16,15 +17,23 @@ class MessageList extends Component {
 
   componentWillMount() {
 
-    firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        // User is signed in.
-        this.props.employeesFetch();
-      } else {
-        // No user is signed in.
-        this.props.navigation.navigate('LoginForm');
-      }
-    });
+    const user = Realm.Sync.User.current;
+
+    if (user) {
+
+    } else {
+      this.props.navigation.navigate('LoginForm');
+    }
+
+    // firebase.auth().onAuthStateChanged((user) => {
+    //   if (user) {
+    //     // User is signed in.
+    //     this.props.employeesFetch();
+    //   } else {
+    //     // No user is signed in.
+    //     this.props.navigation.navigate('LoginForm');
+    //   }
+    // });
 
 
 

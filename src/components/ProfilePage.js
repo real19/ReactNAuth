@@ -4,12 +4,15 @@ import { Card, CardSection, Input, Button, Spinner } from './common';
 import {connect} from 'react-redux';
 import firebase from 'firebase';
 import Icon from 'react-native-fa-icons';
-
+import Realm from 'realm';
 
  class ProfilePage extends Component {
 
     onLoginButtonPress(){
-        firebase.auth().signOut();
+     
+        Realm.Sync.User.current.logout();
+        
+      
     }
 
 
