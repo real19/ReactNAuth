@@ -9,10 +9,10 @@ export const SIGNUP_USER = 'signup_user';
 export const CLEAR_ALL = 'clear_all';
 
 
-export const EMPLOYEE_UPDATE = 'employee_update';
-export const EMPLOYEE_CREATE = 'employee_create';
-export const EMPLOYEES_FETCH_SUCCESS = 'employees_fetch_success';
-export const EMPLOYEE_SAVE_SUCCESS = 'employee_save_success';
+export const MESSAGE_UPDATE = 'message_update';
+export const MESSAGE_CREATE = 'message_create';
+export const MESSAGES_FETCH_SUCCESS = 'messages_fetch_success';
+export const MESSAGE_SAVE_SUCCESS = 'message_save_success';
 
 
 export const CONVERSATION_UPDATE = 'conversation_update';
