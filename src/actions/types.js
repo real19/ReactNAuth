@@ -13,3 +13,10 @@ export const EMPLOYEE_UPDATE = 'employee_update';
 export const EMPLOYEE_CREATE = 'employee_create';
 export const EMPLOYEES_FETCH_SUCCESS = 'employees_fetch_success';
 export const EMPLOYEE_SAVE_SUCCESS = 'employee_save_success';
+
+
+export const CONVERSATION_UPDATE = 'conversation_update';
+export const CONVERSATION_CREATE = 'conversation_create';
+export const CONVERSATION_FETCH_SUCCESS = 'conversation_fetch_success';
+export const CONVERSATION_SAVE_SUCCESS = 'conversation_save_success';
+
