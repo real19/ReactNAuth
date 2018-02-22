@@ -54,13 +54,13 @@ class ConversationList extends Component {
     this.createDataSource(nextProps);
   }
 
-  createDataSource({ conversations}) {
-    const ds = new ConversationListItem.DataSource({
+  createDataSource({ conversationsList}) {
+    const ds = new ListView.DataSource({
       rowHasChanged: (r1, r2) => r1 !== r2
     });
    
 
-    this.dataSource = ds.cloneWithRows(conversations.conversationsList);
+    this.dataSource = ds.cloneWithRows(conversationsList);
   }
 
 
@@ -77,7 +77,10 @@ class ConversationList extends Component {
   }
 
   renderRow(conversation) {
+
     return <ConversationListItem conversation={conversation} />;
+ 
+   // return (<View><Text>{conversation.displayName}</Text></View>);
   }
 
   render() {
@@ -85,18 +88,12 @@ class ConversationList extends Component {
     return (
       <View style={{ backgroundColor: 'white', flex: 1, alignContent: 'flex-start', }} >
 
-          <View style={{
-            flex: 1,
-            flexDirection: 'row',
-            alignItems: 'center',
-            borderColor: 'lightgray',
-          }} >
+      
             <ListView ref='converList'
               enableEmptySections
               dataSource={this.dataSource}
               renderRow={this.renderRow}
             />
-          </View>
         </View>
     );
 
