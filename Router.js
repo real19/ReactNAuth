@@ -7,17 +7,28 @@ import LoginForm from './src/components/LoginForm';
 import SignupForm from './src/components/SignupForm';
 import ProfilePage from './src/components/ProfilePage';
 import MessageList from './src/components/MessageList';
+import ConversationList from './src/components/ConversationList';
 import Icon from 'react-native-fa-icons';
 
 
 export const Tabs = TabNavigator(
 
+  // MessageList: {
+  //   screen: MessageList,
+  //   navigationOptions: {
+  //     title: 'Messages List',
+  //     tabBarLabel: 'Message List',
+  //     tabBarIcon: <Icon style={{ color: 'gray', fontSize: 28 }} name='comments' />
+  //     //)
+  //   },
+  // },
+
   {
     MessageList: {
-      screen: MessageList,
+      screen: ConversationList,
       navigationOptions: {
-        title: 'Messages List',
-        tabBarLabel: 'Message List',
+        title: 'Conversation List',
+        tabBarLabel: 'Conversation List',
         tabBarIcon: <Icon style={{ color: 'gray', fontSize: 28 }} name='comments' />
         //)
       },

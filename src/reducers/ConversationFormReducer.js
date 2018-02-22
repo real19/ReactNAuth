@@ -1,7 +1,7 @@
 import {
-  MESSAGE_UPDATE,
-  MESSAGE_CREATE,
-  MESSAGE_SAVE_SUCCESS
+  CONVERSATION_UPDATE,
+  CONVERSATION_CREATE,
+  CONVERSATION_SAVE_SUCCESS
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -12,11 +12,11 @@ const INITIAL_STATE = {
 
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case MESSAGE_UPDATE:
+    case CONVERSATION_UPDATE:
       return { ...state, [action.payload.prop]: action.payload.value };
-    case MESSAGE_CREATE:
+    case CONVERSATION_CREATE:
       return INITIAL_STATE;
-    case MESSAGE_SAVE_SUCCESS:
+    case CONVERSATION_SAVE_SUCCESS:
       return INITIAL_STATE;
     default:
       return state;

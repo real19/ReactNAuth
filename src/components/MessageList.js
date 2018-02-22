@@ -66,6 +66,7 @@ class MessageList extends Component {
     const { message } = this.props;
 
     this.props.messageCreate({ message });
+    
     this.refs.chatList.scrollTo({ y: this.refs.chatList.height })
   }
 

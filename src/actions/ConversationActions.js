@@ -5,7 +5,7 @@ import {Conversation, ChatMessage, User, newUUID} from './../../Realmer'
 import {
   CONVERSATION_UPDATE,
   CONVERSATION_CREATE,
-  CONVERSATION_FETCH_SUCCESS,
+  CONVERSATIONS_FETCH_SUCCESS,
   CONVERSATION_SAVE_SUCCESS
 } from './types';
 
@@ -31,16 +31,29 @@ export const conversationCreate = ({ name }) => {
   };
 };
 
-export const conversationsFetch = () => {
+export const conversationsFetch = (user) => {
+
+  const config = {
+    sync: {
+      user: user,
+      url: 'realm://localhost:9080/chat',
+    },
+    schema: [Conversation, ChatMessage, User]
+  }
+
+  const realm = new Realm(config);
   
 
   return (dispatch) => {
-    const { currentUser } = firebase.auth();
 
-    firebase.database().ref(`/users/${currentUser.uid}/conversations`)
-      .on('value', snapshot => {
-        dispatch({ type: CONVERSATION_FETCH_SUCCESS, payload: snapshot.val() });
-      });
+    var conversations = realm.objects('Conversation');
+    
+    dispatch({ type: CONVERSATIONS_FETCH_SUCCESS, payload: conversations});
+
+    console.log('conversations are here ')
+    console.log(conversations.length)
+    
+
   };
 };
 

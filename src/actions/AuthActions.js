@@ -125,13 +125,15 @@ const createConversation = (realm, user, theDisplayName) => {
 
 const createSchema = (dispatch, user) => {
 
-  const realm = new Realm({
+  const config = {
     sync: {
       user: user,
       url: 'realm://localhost:9080/chat',
     },
     schema: [Conversation, ChatMessage, User]
-  });
+  }
+
+  const realm = new Realm(config);
 
  
   // createConversation(realm, user, 'General');
