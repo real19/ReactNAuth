@@ -14,13 +14,14 @@ import Realm from 'realm';
 class ConversationList extends Component {
 
 
-
   componentWillMount() {
 
     const user = Realm.Sync.User.current;
 
     if (user) {
-         this.props.conversationsFetch(user);
+        
+      this.props.conversationsFetch(user);
+
     }else {
 
       this.props.navigation.navigate('LoginForm');
@@ -51,14 +52,18 @@ class ConversationList extends Component {
     // will be rendered with
     // this.props is still the old set of props
 
+    console.log('List view is recieving some nbew props?')
+
     this.createDataSource(nextProps);
   }
+  
 
   createDataSource({ conversationsList}) {
     const ds = new ListView.DataSource({
       rowHasChanged: (r1, r2) => r1 !== r2
     });
    
+    
 
     this.dataSource = ds.cloneWithRows(conversationsList);
   }
@@ -69,18 +74,11 @@ class ConversationList extends Component {
 
   }
 
-  onButtonPress() {
-    const { conversation } = this.props;
 
-    this.props.conversationCreate({ conversation });
-    this.refs.conversationsList.scrollTo({ y: this.refs.converList.height })
-  }
 
   renderRow(conversation) {
 
     return <ConversationListItem conversation={conversation} />;
- 
-   // return (<View><Text>{conversation.displayName}</Text></View>);
   }
 
   render() {
@@ -88,11 +86,10 @@ class ConversationList extends Component {
     return (
       <View style={{ backgroundColor: 'white', flex: 1, alignContent: 'flex-start', }} >
 
-      
             <ListView ref='converList'
               enableEmptySections
               dataSource={this.dataSource}
-              renderRow={this.renderRow}
+              renderRow={this.renderRow.bind(this)}
             />
         </View>
     );

@@ -11,6 +11,28 @@ import ConversationList from './src/components/ConversationList';
 import Icon from 'react-native-fa-icons';
 
 
+export const ConversationsNavigator = StackNavigator({
+  ConversationList: {
+    screen: ConversationList,
+    navigationOptions: {
+      title: 'Channels',
+    },
+  },
+  MessageList: { screen: MessageList },
+}, {
+    headerMode: 'screen',
+    navigationOptions: {
+      headerTintColor: "white",
+      headerTitleStyle: {
+        fontWeight: '300',
+      },
+      headerStyle: {
+        backgroundColor: "#444A59"
+      }
+    }
+  });
+
+
 export const Tabs = TabNavigator(
 
   // MessageList: {
@@ -25,9 +47,9 @@ export const Tabs = TabNavigator(
 
   {
     MessageList: {
-      screen: ConversationList,
+      screen: ConversationsNavigator,
       navigationOptions: {
-        title: 'Conversation List',
+        title: 'Channels',
         tabBarLabel: 'Conversation List',
         tabBarIcon: <Icon style={{ color: 'gray', fontSize: 28 }} name='comments' />
         //)
@@ -56,7 +78,7 @@ export const RootNavigator = StackNavigator({
   ProfilePage: { screen: ProfilePage },
 }, {
     mode: 'modal',
-    headerMode: 'screen',
+    headerMode: 'none',
     navigationOptions: {
       headerTintColor: "white",
       headerTitleStyle: {

@@ -33,29 +33,34 @@ export const conversationCreate = ({ name }) => {
 
 export const conversationsFetch = (user) => {
 
-  const config = {
-    sync: {
-      user: user,
-      url: 'realm://localhost:9080/chat',
-    },
-    schema: [Conversation, ChatMessage, User]
-  }
-
-  const realm = new Realm(config);
-  
-
   return (dispatch) => {
 
+    const config = {
+      sync: {
+        user: user,
+        url: 'realm://localhost:9080/chat',
+      },
+      schema: [Conversation, ChatMessage, User]
+    }
+  
+    const realm = new Realm(config);
+    
     var conversations = realm.objects('Conversation');
     
     dispatch({ type: CONVERSATIONS_FETCH_SUCCESS, payload: conversations});
 
-    console.log('conversations are here ')
-    console.log(conversations.length)
-    
+    console.log(conversations.length + ' conversations were found ');
 
-  };
+    realm.objects('Conversation').addListener((conversations, changes) => {
+
+      console.log('conversations listeners are noticed a change ')
+    
+      dispatch({ type: CONVERSATIONS_FETCH_SUCCESS, payload: conversations});
+      
+    });
+  }
 };
+
 
 export const conversationSave = ({ name, uid }) => {
   const { currentUser } = firebase.auth();

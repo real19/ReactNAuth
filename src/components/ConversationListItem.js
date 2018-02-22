@@ -5,6 +5,9 @@ import { CardSection } from './common';
 
 class ConversationListItem extends Component {
   onRowPress() {
+    const { conversation } = this.props;
+    console.log('Button pressed for' + conversation.displayName);
+
    // Actions.employeeEdit({ employee: this.props.employee });
   }
 
@@ -14,10 +17,10 @@ class ConversationListItem extends Component {
     return (
       <TouchableWithoutFeedback 
         onPress={this.onRowPress.bind(this)}>
-        <View style={{backgroundColor:'#0072C6', 
-        flex: 1, 
-         margin:10,
-          borderRadius:10 }}>
+        <View style={{backgroundColor:'#B8312F', 
+        flex: 1,
+        padding:10, 
+         margin:1, }}>
         <View>
             <Text style={styles.titleStyle}>
               {conversation.displayName}
@@ -32,9 +35,10 @@ class ConversationListItem extends Component {
 const styles = {
   titleStyle: {
     fontSize: 14,
-    padding: 10,
+    padding: 5,
     color:'white',
-    flex:1
+    flex:1,
+    textAlign:'center'
   }
 };
 
