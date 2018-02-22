@@ -6,7 +6,8 @@ import {
   CONVERSATION_UPDATE,
   CONVERSATION_CREATE,
   CONVERSATIONS_FETCH_SUCCESS,
-  CONVERSATION_SAVE_SUCCESS
+  CONVERSATION_SAVE_SUCCESS, 
+  CONVERSATION_SELECTED
 } from './types';
 
 export const conversationUpdate = ({ prop, value }) => {
@@ -86,3 +87,10 @@ export const conversationDelete = ({ uid }) => {
       });
   };
 };
+
+export const conversationSelected = (conversation) => {
+  console.log('conversation selected action reached');
+
+  return { type: CONVERSATION_SELECTED, payload:conversation };
+};
+

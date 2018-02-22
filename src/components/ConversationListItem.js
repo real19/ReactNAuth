@@ -1,14 +1,17 @@
 import React, { Component } from 'react';
 import { Text, TouchableWithoutFeedback, View } from 'react-native';
-
+import { connect } from 'react-redux';
 import { CardSection } from './common';
+import { conversationSelected } from '../actions';
 
 class ConversationListItem extends Component {
   onRowPress() {
-    const { conversation } = this.props;
+    const { conversation, conversationSelected } = this.props;
     console.log('Button pressed for' + conversation.displayName);
 
-   // Actions.employeeEdit({ employee: this.props.employee });
+     conversationSelected(conversation);
+
+    this.props.navigation.navigate('MessageList');
   }
 
   render() {
@@ -27,7 +30,7 @@ class ConversationListItem extends Component {
             </Text>
             </View>
         </View>
-      </TouchableWithoutFeedback>
+       </TouchableWithoutFeedback>
     );
   }
 }
@@ -42,4 +45,6 @@ const styles = {
   }
 };
 
-export default ConversationListItem;
+
+export default connect(null, {conversationSelected})(ConversationListItem);
+

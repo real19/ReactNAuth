@@ -1,9 +1,18 @@
 import React, { Component } from 'react';
-import { ListView, View, Text, StatusBar, TouchableOpacity, TextInput, StyleSheet } from 'react-native';
+import { 
+  ListView, 
+  View, 
+  Text, 
+  StatusBar, 
+  TouchableOpacity, 
+  TextInput, 
+  StyleSheet, 
+  TouchableWithoutFeedback 
+} from 'react-native';
 import { Card, CardSection, Input, Spinner, Header } from './common';
 import { Button } from 'react-native-elements';
 import { connect } from 'react-redux';
-import { conversationUpdate, conversationCreate, conversationsFetch, emailChanged } from '../actions';
+import { conversationUpdate, conversationCreate, conversationsFetch, emailChanged, conversationSelected} from '../actions';
 import _ from 'lodash';
 import firebase from 'firebase';
 import ConversationListItem from './ConversationListItem';
@@ -27,19 +36,6 @@ class ConversationList extends Component {
       this.props.navigation.navigate('LoginForm');
     }
 
-    // else {
-    //   this.props.navigation.navigate('LoginForm');
-    // }
-
-    // firebase.auth().onAuthStateChanged((user) => {
-    //   if (user) {
-    //     // User is signed in.
-    //     this.props.conversationsFetch();
-    //   } else {
-    //     // No user is signed in.
-    //     this.props.navigation.navigate('LoginForm');
-    //   }
-    // });
 
     console.log('LIST is ');
     console.log(this.props);
@@ -59,11 +55,10 @@ class ConversationList extends Component {
   
 
   createDataSource({ conversationsList}) {
+   
     const ds = new ListView.DataSource({
       rowHasChanged: (r1, r2) => r1 !== r2
     });
-   
-    
 
     this.dataSource = ds.cloneWithRows(conversationsList);
   }
@@ -77,8 +72,7 @@ class ConversationList extends Component {
 
 
   renderRow(conversation) {
-
-    return <ConversationListItem conversation={conversation} />;
+     return <ConversationListItem conversation={conversation} navigation = {this.props.navigation} />;
   }
 
   render() {
@@ -107,11 +101,10 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => {
   const { user } = state.auth;
-  const { conversation } = state.conversationForm;
-  const { conversationsList } = state.conversations;
+  const { selectedConversation, conversationsList } = state.conversations;
 
-  return { user, conversation, conversationsList };
+  return { user, selectedConversation, conversationsList };
 };
 
 
-export default connect(mapStateToProps, { conversationUpdate, conversationCreate, conversationsFetch })(ConversationList);
+export default connect(mapStateToProps, { conversationUpdate, conversationCreate, conversationsFetch, conversationSelected })(ConversationList);

@@ -22,7 +22,7 @@ class MessageList extends Component {
     if (user) {
 
     } else {
-      this.props.navigation.navigate('LoginForm');
+      // this.props.navigation.navigate('LoginForm');
     }
 
     // firebase.auth().onAuthStateChanged((user) => {

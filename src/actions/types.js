@@ -20,4 +20,4 @@ export const CONVERSATION_UPDATE = 'conversation_update';
 export const CONVERSATION_CREATE = 'conversation_create';
 export const CONVERSATIONS_FETCH_SUCCESS = 'conversation_fetch_success';
 export const CONVERSATION_SAVE_SUCCESS = 'conversation_save_success';
-
+export const CONVERSATION_SELECTED = 'conversation_selected';
