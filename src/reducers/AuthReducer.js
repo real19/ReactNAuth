@@ -7,7 +7,8 @@ import {
     SIGNUP_USER_SUCCESS,
     SIGNUP_USER_FAIL,
     SIGNUP_USER, 
-    CLEAR_ALL
+    CLEAR_ALL, 
+    REALM_SUCCESS
   } from '../actions/types';
   
   const INITIAL_STATE = {
@@ -15,7 +16,8 @@ import {
     password: '',
     user: null,
     error: '',
-    loading: false
+    loading: false,
+    realm: ''
   };
   
   export default (state = INITIAL_STATE, action) => {
@@ -41,6 +43,8 @@ import {
         return { ...state, ...INITIAL_STATE, user: action.payload };
       case SIGNUP_USER_FAIL:
         return { ...state, error: action.payload, password: '', loading: false };
+      case REALM_SUCCESS:
+        return { ...state, realm: action.payload };
       default:
         return state;
     }

@@ -7,7 +7,8 @@ import {
   SIGNUP_USER_SUCCESS,
   SIGNUP_USER_FAIL,
   SIGNUP_USER,
-  CLEAR_ALL
+  CLEAR_ALL,  
+  REALM_SUCCESS
 } from './types'
 import firebase from 'firebase';
 import { NavigationActions } from 'react-navigation';
@@ -43,7 +44,7 @@ export const loginUser = ({ email, password, navigation }) => {
 
     Realm.Sync.User.login('http://0.0.0.0:9080', email, password).then(user => {
 
-      createSchema(user);
+      createSchema(dispatch, user);
 
       loginUserSuccess(dispatch, user, navigation);
       // user is logged in
@@ -122,7 +123,7 @@ const createConversation = (realm, user, theDisplayName) => {
 
 }
 
-const createSchema = (user) => {
+const createSchema = (dispatch, user) => {
 
   const realm = new Realm({
     sync: {
@@ -133,8 +134,14 @@ const createSchema = (user) => {
   });
 
  
-  createConversation(realm, user, 'General');
-  createConversation(realm, user, 'Events');
+  // createConversation(realm, user, 'General');
+  // createConversation(realm, user, 'Events');
+
+  dispatch({
+    type: REALM_SUCCESS,
+    payload: realm
+  });
+
 }
 
 export const signupUser = ({ email, password, navigation }) => {
