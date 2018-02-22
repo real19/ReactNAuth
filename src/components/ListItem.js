@@ -9,7 +9,7 @@ class ListItem extends Component {
   }
 
   render() {
-    const { name } = this.props.employee;
+    const { message } = this.props.messages;
 
     return (
       <TouchableWithoutFeedback 
@@ -20,7 +20,7 @@ class ListItem extends Component {
           borderRadius:10 }}>
         <View>
             <Text style={styles.titleStyle}>
-              {name}
+              {message}
             </Text>
             </View>
         </View>

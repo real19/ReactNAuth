@@ -3,7 +3,7 @@ import { ListView, View, Text, StatusBar, TouchableOpacity, TextInput, StyleShee
 import { Card, CardSection, Input, Spinner, Header } from './common';
 import { Button } from 'react-native-elements';
 import { connect } from 'react-redux';
-import { employeeUpdate, employeeCreate, employeesFetch, emailChanged } from '../actions';
+import { messageUpdate, messageCreate, messagesFetch, emailChanged } from '../actions';
 import _ from 'lodash';
 import firebase from 'firebase';
 import ListItem from './ListItem';
@@ -28,7 +28,7 @@ class MessageList extends Component {
     // firebase.auth().onAuthStateChanged((user) => {
     //   if (user) {
     //     // User is signed in.
-    //     this.props.employeesFetch();
+    //     this.props.messagesFetch();
     //   } else {
     //     // No user is signed in.
     //     this.props.navigation.navigate('LoginForm');
@@ -48,12 +48,12 @@ class MessageList extends Component {
     this.createDataSource(nextProps);
   }
 
-  createDataSource({ employees }) {
+  createDataSource({ messages }) {
     const ds = new ListView.DataSource({
       rowHasChanged: (r1, r2) => r1 !== r2
     });
 
-    this.dataSource = ds.cloneWithRows(employees.reverse());
+    this.dataSource = ds.cloneWithRows(messages.reverse());
   }
 
 
@@ -63,14 +63,14 @@ class MessageList extends Component {
   }
 
   onButtonPress() {
-    const { name } = this.props;
+    const { message } = this.props;
 
-    this.props.employeeCreate({ name });
+    this.props.messageCreate({ message });
     this.refs.chatList.scrollTo({ y: this.refs.chatList.height })
   }
 
-  renderRow(employee) {
-    return <ListItem employee={employee} />;
+  renderRow(message) {
+    return <ListItem message={message} />;
   }
 
   render() {
@@ -105,8 +105,8 @@ class MessageList extends Component {
                 height: 44
               }}
               placeholder="Whats on your mind ..."
-              value={this.props.name}
-              onChangeText={value => this.props.employeeUpdate({ prop: 'name', value })} />
+              value={this.props.message}
+              onChangeText={value => this.props.messageUpdate({ prop: 'message', value })} />
 
             <TouchableOpacity style={{
               flex: 1,
@@ -148,16 +148,16 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => {
   const { user } = state.auth;
-  const { name } = state.employeeForm;
-  const employees = _.map(state.employees, (val, uid) => {
+  const { message } = state.messageForm;
+  const messages = _.map(state.messages, (val, uid) => {
 
-    let employeeArray = { ...val, uid }
-    console.log(employeeArray);
-    return employeeArray;
+    let messageArray = { ...val, uid }
+    console.log(messageArray);
+    return messageArray;
   });
 
-  return { user, name, employees };
+  return { user, message, messages };
 };
 
 
-export default connect(mapStateToProps, { employeeUpdate, employeeCreate, employeesFetch })(MessageList);
+export default connect(mapStateToProps, { messageUpdate, messageCreate, messagesFetch })(MessageList);

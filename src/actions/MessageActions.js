@@ -16,14 +16,14 @@ export const messageUpdate = ({ prop, value }) => {
   };
 };
 
-export const messageCreate = ({ name }) => {
+export const messageCreate = ({ message }) => {
   const { currentUser } = firebase.auth();
 
   console.log(`current user is ${currentUser.uid}`);
 
   return (dispatch) => {
     firebase.database().ref(`/users/${currentUser.uid}/messages`)
-      .push({ name })
+      .push({ message })
       .then(() => {
         dispatch({ type: MESSAGE_CREATE });
        // Actions.messageList({ type: 'reset' });

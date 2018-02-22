@@ -1,12 +1,12 @@
 import { combineReducers } from 'redux';
 import AuthReducer from './AuthReducer';
-import EmployeeFormReducer from './EmployeeFormReducer';
+import MessageFormReducer from './MessageFormReducer';
 import MessageReducer from './MessageReducer';
 import ConversationsReducer from './ConversationsReducer';
 
 export default combineReducers({
   auth: AuthReducer,
-  employeeForm: EmployeeFormReducer,
+  messageForm: MessageFormReducer,
   messages: MessageReducer,
   conversations:ConversationsReducer,
 });
