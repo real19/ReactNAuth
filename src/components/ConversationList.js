@@ -50,10 +50,7 @@ class ConversationList extends Component {
     // will be rendered with
     // this.props is still the old set of props
 
-
-
-
-    console.log('List view is recieving some nbew props?')
+    console.log('ConversationsList view is recieving some new props')
 
     this.createDataSource(nextProps);
   }
@@ -67,7 +64,6 @@ class ConversationList extends Component {
 
     this.dataSource = ds.cloneWithRows(conversationsList);
   }
-
 
 
   componentDidMount() {

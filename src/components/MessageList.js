@@ -106,7 +106,7 @@ class MessageList extends Component {
                   color: 'gray',
                   fontSize: 28
                 }}
-                  name='fighter-jet' /></Text>
+                  name='paper-plane' /></Text>
             </TouchableOpacity>
           </View>
         </View>
