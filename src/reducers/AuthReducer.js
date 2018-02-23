@@ -44,6 +44,9 @@ import {
       case SIGNUP_USER_FAIL:
         return { ...state, error: action.payload, password: '', loading: false };
       case REALM_SUCCESS:
+
+      console.log('realm success happened')
+
         return { ...state, realm: action.payload };
       default:
         return state;

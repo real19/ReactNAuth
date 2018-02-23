@@ -44,7 +44,7 @@ export const loginUser = ({ email, password, navigation }) => {
 
     Realm.Sync.User.login('http://0.0.0.0:9080', email, password).then(user => {
 
-      createSchema(dispatch, user);
+
 
      
       loginUserSuccess(user, navigation);
@@ -70,6 +70,8 @@ const loginUserFail = (dispatch, message, goBack) => {
 };
 
 export const loginUserSuccess = (user, navigation) => {
+
+  createRealm(user);
 
   navigation.goBack();
   return {
@@ -124,7 +126,7 @@ const createConversation = (realm, user, theDisplayName) => {
 
 }
 
-const createSchema = (dispatch, user) => {
+const createRealm = (user) => {
 
   const config = {
     sync: {
@@ -136,14 +138,15 @@ const createSchema = (dispatch, user) => {
 
   const realm = new Realm(config);
 
+  console.log("createRealm was called")
  
   // createConversation(realm, user, 'General');
   // createConversation(realm, user, 'Events');
 
-  dispatch({
+  return {
     type: REALM_SUCCESS,
     payload: realm
-  });
+  };
 
 }
 

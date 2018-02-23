@@ -3,9 +3,8 @@ import { ListView, View, Text, StatusBar, TouchableOpacity, TextInput, StyleShee
 import { Card, CardSection, Input, Spinner, Header } from './common';
 import { Button } from 'react-native-elements';
 import { connect } from 'react-redux';
-import { messageUpdate, messageCreate, messagesFetch, emailChanged } from '../actions';
-import _ from 'lodash';
-import firebase from 'firebase';
+import { messageUpdate, messageCreate, messagesFetch } from '../actions';
+
 import ListItem from './ListItem';
 import Icon from 'react-native-fa-icons';
 import Realm from 'realm';
@@ -20,48 +19,30 @@ class MessageList extends Component {
 
   componentWillMount() {
 
-  
-
-    const user = Realm.Sync.User.current;
+   const user = Realm.Sync.User.current;
 
     if (user) {
 
-      
+      this.props.messagesFetch(user, this.props.selectedConversation);
 
     } else {
       // this.props.navigation.navigate('LoginForm');
     }
 
-    // firebase.auth().onAuthStateChanged((user) => {
-    //   if (user) {
-    //     // User is signed in.
-    //     this.props.messagesFetch();
-    //   } else {
-    //     // No user is signed in.
-    //     this.props.navigation.navigate('LoginForm');
-    //   }
-    // });
-
-
-
     this.createDataSource(this.props);
   }
 
   componentWillReceiveProps(nextProps) {
-    // nextProps are the next set of props that this component
-    // will be rendered with
-    // this.props is still the old set of props
 
-  
     this.createDataSource(nextProps);
   }
 
-  createDataSource({ messages }) {
+  createDataSource({ messageList }) {
     const ds = new ListView.DataSource({
       rowHasChanged: (r1, r2) => r1 !== r2
     });
 
-    this.dataSource = ds.cloneWithRows(messages.reverse());
+    this.dataSource = ds.cloneWithRows(messageList);
   }
 
 
@@ -73,13 +54,13 @@ class MessageList extends Component {
   onButtonPress() {
     const {realm,  message, selectedConversation, user } = this.props;
 
-    this.props.messageCreate(message, selectedConversation, user);
+    this.props.messageCreate(message, selectedConversation, user, realm);
     
     this.refs.chatList.scrollTo({ y: this.refs.chatList.height })
   }
 
-  renderRow(message) {
-    return <ListItem message={message} />;
+  renderRow(theMessage) {
+    return <ListItem message = {theMessage} />;
   }
 
   render() {
@@ -87,10 +68,7 @@ class MessageList extends Component {
     return (
       <View style={{ backgroundColor: 'white', flex: 1, alignContent: 'flex-start',  }} >
 
-
-       
-
-        <View style={{
+  <View style={{
           flex: 1,
           padding: 10,
           flexDirection: 'row',
@@ -128,7 +106,7 @@ class MessageList extends Component {
                   color: 'gray',
                   fontSize: 28
                 }}
-                  name='sign-out' /></Text>
+                  name='fighter-jet' /></Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -159,14 +137,9 @@ const mapStateToProps = (state) => {
   const { realm, user } = state.auth;
   const { message } = state.messageForm;
   const { selectedConversation } = state.conversations;
-  const messages = _.map(state.messages, (val, uid) => {
+  const {messageList} = state.messages;
 
-    let messageArray = { ...val, uid }
-    console.log(messageArray);
-    return messageArray;
-  });
-
-  return {realm, user, message, messages, selectedConversation };
+  return {realm, user, message, messageList, selectedConversation };
 };
 
 

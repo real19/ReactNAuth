@@ -16,9 +16,80 @@ export const messageUpdate = ({ prop, value }) => {
   };
 };
 
-export const messageCreate = (message, selectedConversation, user) => {
+export const messageCreate = (message, selectedConversation, user, therealm) => {
 
-  console.log("user is " + user)
+
+  const config = {
+    sync: {
+      user: user,
+      url: 'realm://localhost:9080/chat',
+    },
+    schema: [Conversation, ChatMessage, User]
+  }
+
+  const realm = new Realm(config);
+
+ let name = selectedConversation.displayName
+
+ console.log("name is now "+ name);
+
+ let predicate =  `displayName = "${selectedConversation.displayName}"`
+
+ console.log("predicate is now "+ predicate);
+
+    var conversation = realm.objects('Conversation').filtered(predicate)[0];
+    //.filter('displayName = "' + selectedConversation.displayName + '"');
+
+    try {
+
+      let uid = newUUID();
+      let now = new Date().toDateString();
+      console.log("now is " + now)
+
+
+      console.log("newUUID is " + newUUID)
+
+      let ourUser = {
+        id:user.identity, 
+        username:user.identity,
+        displayName:user.identity, 
+        avatarImage:null
+      }
+
+      let chatMessage = {
+        messageID: uid,
+        user: ourUser,
+        mimeType:'text',
+        text:message,
+        extraInfo:null,
+        timestamp:now,
+      }
+
+      realm.write(() => {
+
+        conversation.chatMessages.push(chatMessage);
+        
+        console.log("write succeeeded??? :(")
+
+        console.log("messages are " + conversation.chatMessages)
+
+      });
+
+
+    } catch (e) {
+
+      console.log("write failed :(" + e.message)
+    }
+
+  return (dispatch) => {
+
+
+
+  };
+};
+
+export const messagesFetch = (user, selectedConversation) => {
+
 
   return (dispatch) => {
 
@@ -34,48 +105,15 @@ export const messageCreate = (message, selectedConversation, user) => {
 
   const realm = new Realm(config);
 
+ let name = selectedConversation.displayName
 
-    var conversation = realm.objects('Conversation').filtered(`displayName = '${selectedConversation.displayName}'`);
+ let predicate =  `displayName = "${selectedConversation.displayName}"`
 
-    if (conversation.length < 1) {
+    var conversation = realm.objects('Conversation').filtered(predicate)[0];
 
-      try {
+    dispatch({ type: MESSAGES_FETCH_SUCCESS, payload: conversation.chatMessages });
 
-        let uid = newUUID();
-        let now = new Date().toDateString();
-
-
-        console.log("newUUID is " + newUUID)
-
-        let chatMessage = {
-          messageID: uid,
-          user: user,
-          mimeType:'text',
-          text: 'string',
-          extraInfo:null,
-          timestamp:now,
-          conversations:[]
-        }
-
-        realm.write(() => {
-
-          conversation.chatMessages.push(chatMessage);
-
-        });
-
-
-      } catch (e) {
-
-        console.log("write failed :(")
-      }
-    }
-  };
-};
-
-export const messagesFetch = () => {
-
-
-  return (dispatch) => {
+        
     //   const { currentUser } = firebase.auth();
 
     //   firebase.database().ref(`/users/${currentUser.uid}/messages`)
