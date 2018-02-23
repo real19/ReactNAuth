@@ -1,6 +1,6 @@
 import Realm from 'realm';
 import firebase from 'firebase';
-import {Conversation, ChatMessage, User} from './../../Realmer'
+import { Conversation, ChatMessage, User, newUUID } from './../../Realmer'
 
 import {
   MESSAGE_UPDATE,
@@ -16,31 +16,72 @@ export const messageUpdate = ({ prop, value }) => {
   };
 };
 
-export const messageCreate = ({ message }) => {
-  const { currentUser } = firebase.auth();
+export const messageCreate = (message, selectedConversation, user) => {
 
-  console.log(`current user is ${currentUser.uid}`);
+  console.log("user is " + user)
 
   return (dispatch) => {
-    firebase.database().ref(`/users/${currentUser.uid}/messages`)
-      .push({ message })
-      .then(() => {
-        dispatch({ type: MESSAGE_CREATE });
-       // Actions.messageList({ type: 'reset' });
-      });
+
+
+
+  const config = {
+    sync: {
+      user: user,
+      url: 'realm://localhost:9080/chat',
+    },
+    schema: [Conversation, ChatMessage, User]
+  }
+
+  const realm = new Realm(config);
+
+
+    var conversation = realm.objects('Conversation').filtered(`displayName = '${selectedConversation.displayName}'`);
+
+    if (conversation.length < 1) {
+
+      try {
+
+        let uid = newUUID();
+        let now = new Date().toDateString();
+
+
+        console.log("newUUID is " + newUUID)
+
+        let chatMessage = {
+          messageID: uid,
+          user: user,
+          mimeType:'text',
+          text: 'string',
+          extraInfo:null,
+          timestamp:now,
+          conversations:[]
+        }
+
+        realm.write(() => {
+
+          conversation.chatMessages.push(chatMessage);
+
+        });
+
+
+      } catch (e) {
+
+        console.log("write failed :(")
+      }
+    }
   };
 };
 
 export const messagesFetch = () => {
-  
+
 
   return (dispatch) => {
-    const { currentUser } = firebase.auth();
+    //   const { currentUser } = firebase.auth();
 
-    firebase.database().ref(`/users/${currentUser.uid}/messages`)
-      .on('value', snapshot => {
-        dispatch({ type: MESSAGES_FETCH_SUCCESS, payload: snapshot.val() });
-      });
+    //   firebase.database().ref(`/users/${currentUser.uid}/messages`)
+    //     .on('value', snapshot => {
+    //       dispatch({ type: MESSAGES_FETCH_SUCCESS, payload: snapshot.val() });
+    //     });
   };
 };
 
@@ -49,10 +90,10 @@ export const messageSave = ({ name, uid }) => {
 
   return (dispatch) => {
     firebase.database().ref(`/users/${currentUser.uid}/messages/${uid}`)
-      .set({ name})
+      .set({ name })
       .then(() => {
         dispatch({ type: MESSAGE_SAVE_SUCCESS });
-        
+
       });
   };
 };

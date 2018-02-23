@@ -34,7 +34,7 @@ import {
       case LOGIN_USER:
         return { ...state, loading: true, error: '' };
       case LOGIN_USER_SUCCESS:
-        return { ...state, ...INITIAL_STATE, user: action.payload };
+        return { ...state, user: action.payload };
       case LOGIN_USER_FAIL:
         return { ...state, error: action.payload, password: '', loading: false };
       case SIGNUP_USER:

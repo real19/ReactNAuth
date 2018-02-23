@@ -46,7 +46,8 @@ export const loginUser = ({ email, password, navigation }) => {
 
       createSchema(dispatch, user);
 
-      loginUserSuccess(dispatch, user, navigation);
+     
+      loginUserSuccess(user, navigation);
       // user is logged in
       // do stuff ...
     }).catch(error => {
@@ -63,19 +64,19 @@ export const loginUser = ({ email, password, navigation }) => {
   }
 };
 
-const loginUserFail = (dispatch, message) => {
+const loginUserFail = (dispatch, message, goBack) => {
 
   dispatch({ type: LOGIN_USER_FAIL, payload: message });
 };
 
-const loginUserSuccess = (dispatch, user, navigation) => {
-  dispatch({
-    type: LOGIN_USER_SUCCESS,
-    payload: user
-  });
-
+export const loginUserSuccess = (user, navigation) => {
 
   navigation.goBack();
+  return {
+    type: LOGIN_USER_SUCCESS,
+    payload: user
+  };
+ 
 };
 
 

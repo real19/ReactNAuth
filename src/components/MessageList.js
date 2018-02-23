@@ -13,13 +13,20 @@ import Realm from 'realm';
 
 class MessageList extends Component {
 
+  // static navigationOptions = {
+  //   title:  'Messages',
+  // };
 
 
   componentWillMount() {
 
+  
+
     const user = Realm.Sync.User.current;
 
     if (user) {
+
+      
 
     } else {
       // this.props.navigation.navigate('LoginForm');
@@ -45,6 +52,7 @@ class MessageList extends Component {
     // will be rendered with
     // this.props is still the old set of props
 
+  
     this.createDataSource(nextProps);
   }
 
@@ -63,9 +71,9 @@ class MessageList extends Component {
   }
 
   onButtonPress() {
-    const { message } = this.props;
+    const {realm,  message, selectedConversation, user } = this.props;
 
-    this.props.messageCreate({ message });
+    this.props.messageCreate(message, selectedConversation, user);
     
     this.refs.chatList.scrollTo({ y: this.refs.chatList.height })
   }
@@ -148,8 +156,9 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => {
-  const { user } = state.auth;
+  const { realm, user } = state.auth;
   const { message } = state.messageForm;
+  const { selectedConversation } = state.conversations;
   const messages = _.map(state.messages, (val, uid) => {
 
     let messageArray = { ...val, uid }
@@ -157,7 +166,7 @@ const mapStateToProps = (state) => {
     return messageArray;
   });
 
-  return { user, message, messages };
+  return {realm, user, message, messages, selectedConversation };
 };
 
 

@@ -12,9 +12,11 @@ import {
 import { Card, CardSection, Input, Spinner, Header } from './common';
 import { Button } from 'react-native-elements';
 import { connect } from 'react-redux';
-import { conversationUpdate, conversationCreate, conversationsFetch, emailChanged, conversationSelected} from '../actions';
-import _ from 'lodash';
-import firebase from 'firebase';
+import { conversationUpdate, 
+  conversationCreate, 
+  conversationsFetch, 
+  loginUserSuccess, 
+  conversationSelected} from '../actions';
 import ConversationListItem from './ConversationListItem';
 import Icon from 'react-native-fa-icons';
 import Realm from 'realm';
@@ -29,13 +31,13 @@ class ConversationList extends Component {
 
     if (user) {
         
+      this.props.loginUserSuccess(user, this.props.navigation);
       this.props.conversationsFetch(user);
 
     }else {
 
       this.props.navigation.navigate('LoginForm');
     }
-
 
     console.log('LIST is ');
     console.log(this.props);
@@ -47,6 +49,9 @@ class ConversationList extends Component {
     // nextProps are the next set of props that this component
     // will be rendered with
     // this.props is still the old set of props
+
+
+
 
     console.log('List view is recieving some nbew props?')
 
@@ -107,4 +112,4 @@ const mapStateToProps = (state) => {
 };
 
 
-export default connect(mapStateToProps, { conversationUpdate, conversationCreate, conversationsFetch, conversationSelected })(ConversationList);
+export default connect(mapStateToProps, { loginUserSuccess, conversationUpdate, conversationCreate, conversationsFetch, conversationSelected })(ConversationList);
