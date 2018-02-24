@@ -9,21 +9,28 @@ import ListItem from './ListItem';
 import Icon from 'react-native-fa-icons';
 import Realm from 'realm';
 
+import {getRealm} from '../../Realmer';
 
 class MessageList extends Component {
 
-  // static navigationOptions = {
-  //   title:  'Messages',
-  // };
+  static navigationOptions = {
+    title:  'Messages',
+  };
+
+  constructor(props){
+    super(props)
+    this.realmUser = Realm.Sync.User.current;
+
+  }
 
 
   componentWillMount() {
 
-   const user = Realm.Sync.User.current;
 
-    if (user) {
+    if (this.realmUser) {
 
-      this.props.messagesFetch(user, this.props.selectedConversation);
+      this.props.messagesFetch(this.realmUser, this.props.selectedConversation);
+
 
     } else {
       // this.props.navigation.navigate('LoginForm');
@@ -32,9 +39,32 @@ class MessageList extends Component {
     this.createDataSource(this.props);
   }
 
+
+removeListeners(){
+
+  const realm = getRealm(this.realmUser);
+}
+
+
+
+  addListener(){
+
+    const realm = getRealm(this.realmUser);
+
+    realm.objects('ChatMessage').addListener((conversations, changes) => {
+
+      console.log(' listeners was added for  a change ')
+
+      this.refs.chatList.scrollToEnd();
+
+    });
+
+  }
+
   componentWillReceiveProps(nextProps) {
 
     this.createDataSource(nextProps);
+    this.refs.chatList.scrollToEnd();
   }
 
   createDataSource({ messageList }) {
@@ -55,12 +85,10 @@ class MessageList extends Component {
     const {realm,  message, selectedConversation, user } = this.props;
 
     this.props.messageCreate(message, selectedConversation, user, realm);
-    
-    this.refs.chatList.scrollTo({ y: this.refs.chatList.height })
   }
 
   renderRow(theMessage) {
-    return <ListItem message = {theMessage} />;
+  return (<ListItem message = {theMessage}  realmUser = { Realm.Sync.User.current}/>);
   }
 
   render() {
@@ -68,11 +96,18 @@ class MessageList extends Component {
     return (
       <View style={{ backgroundColor: 'white', flex: 1, alignContent: 'flex-start',  }} >
 
+<View style={{ flex: 29, marginBottom: 10,  }}>
+          <ListView ref='chatList'
+            enableEmptySections
+            dataSource={this.dataSource}
+            renderRow={this.renderRow}
+          />
+        </View>
   <View style={{
           flex: 1,
           padding: 10,
           flexDirection: 'row',
-          marginTop: 10,
+          marginBottom: 10,
           alignItems: 'center',
           backgroundColor: 'transparent'
         }} >
@@ -80,7 +115,7 @@ class MessageList extends Component {
             flex: 1,
             flexDirection: 'row',
             alignItems: 'center',
-            borderColor: 'lightgray',
+            borderColor: '#d8d8d8',
             borderRadius: 20,
             borderWidth: 1,
           }} >
@@ -103,7 +138,7 @@ class MessageList extends Component {
             }} onPress={this.onButtonPress.bind(this)}>
               <Text style={{ color: 'white' }}>
                 <Icon style={{
-                  color: 'gray',
+                  color: '#d8d8d8',
                   fontSize: 28
                 }}
                   name='paper-plane' /></Text>
@@ -111,13 +146,6 @@ class MessageList extends Component {
           </View>
         </View>
 
-        <View style={{ flex: 29, marginBottom: 10,  }}>
-          <ListView ref='chatList'
-            enableEmptySections
-            dataSource={this.dataSource}
-            renderRow={this.renderRow}
-          />
-        </View>
 
       </View>
     );

@@ -51,7 +51,7 @@ export const Tabs = TabNavigator(
       navigationOptions: {
         title: 'Channels',
         tabBarLabel: 'Conversation List',
-        tabBarIcon: <Icon style={{ color: 'gray', fontSize: 28 }} name='comments' />
+        tabBarIcon: <Icon style={{ color: '#d8d8d8', fontSize: 28 }} name='comments' />
         //)
       },
     },
@@ -61,7 +61,7 @@ export const Tabs = TabNavigator(
         title: 'Profile Page',
         tabBarLabel: 'Profile Page',
         tabBarIcon: ({ activeTintColor }) => <Icon
-          style={{ color: 'gray', fontSize: 28 }}
+          style={{ color: '#d8d8d8', fontSize: 28 }}
           name='user' />
       }
     }

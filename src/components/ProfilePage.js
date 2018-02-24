@@ -30,7 +30,7 @@ class ProfilePage extends Component {
                     <Card style={{
                     backgroundColor: 'blue',}}>
                         <TouchableOpacity onPress={this.onLoginButtonPress.bind(this)}>
-                            <Text><Icon style={{ color: 'gray', fontSize: 28 }} name='sign-out' />  Logout</Text>
+                            <Text><Icon style={{ color: '#d8d8d8', fontSize: 28 }} name='sign-out' />  Logout</Text>
                         </TouchableOpacity>
                     </Card>
                 </CardSection>

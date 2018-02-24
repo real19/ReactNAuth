@@ -2,7 +2,18 @@
 
 import Realm from 'realm';
 
+export function getRealm(user){
 
+    const config = {
+      sync: {
+        user: this.props.user,
+        url: 'realm://localhost:9080/chat',
+      },
+      schema: [Conversation, ChatMessage, User]
+    }
+
+    return  realm = new Realm(config);
+  }
 
 export class User extends Realm.Object {}
 User.schema = {

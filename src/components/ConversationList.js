@@ -21,18 +21,25 @@ import ConversationListItem from './ConversationListItem';
 import Icon from 'react-native-fa-icons';
 import Realm from 'realm';
 
+import {realm} from '../../Realmer'
+
+
 
 class ConversationList extends Component {
 
 
   componentWillMount() {
 
+
     const user = Realm.Sync.User.current;
 
     if (user) {
-        
+      
+
       this.props.loginUserSuccess(user, this.props.navigation);
       this.props.conversationsFetch(user);
+
+
 
     }else {
 
@@ -44,6 +51,7 @@ class ConversationList extends Component {
 
     this.createDataSource(this.props);
   }
+  
 
   componentWillReceiveProps(nextProps) {
     // nextProps are the next set of props that this component

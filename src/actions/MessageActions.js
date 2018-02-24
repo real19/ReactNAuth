@@ -1,6 +1,6 @@
 import Realm from 'realm';
 import firebase from 'firebase';
-import { Conversation, ChatMessage, User, newUUID } from './../../Realmer'
+import { Conversation, ChatMessage, User, newUUID, realm } from './../../Realmer'
 
 import {
   MESSAGE_UPDATE,
@@ -36,6 +36,7 @@ export const messageCreate = (message, selectedConversation, user, therealm) => 
   let predicate = `displayName = "${selectedConversation.displayName}"`
 
   console.log("predicate is now " + predicate);
+  console.log("message to right is now " + message);
 
   var conversation = realm.objects('Conversation').filtered(predicate)[0];
 
@@ -105,11 +106,11 @@ export const messagesFetch = (user, selectedConversation) => {
 
     console.log(conversation.length + ' conversations were found ');
 
-    // realm.objects('Conversation').addListener((conversations, changes) => {
+    // realm.objects('ChatMessage').addListener((conversations, changes) => {
 
     //   console.log('conversations listeners are noticed a change ')
 
-    //   dispatch({ type: MESSAGES_FETCH_SUCCESS, payload: conversation.chatMessages });
+    //  dispatch({ type: MESSAGES_FETCH_SUCCESS, payload: conversation.chatMessages });
 
     // })
   }

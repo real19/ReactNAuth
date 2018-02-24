@@ -8,34 +8,79 @@ class ListItem extends Component {
    // Actions.employeeEdit({ employee: this.props.employee });
   }
 
-  render() {
-    const { message } = this.props;
+  renderBackgroundColor(){
+  
+    if (this.userIsSame()) {
+      return '#0072C6'
+    } else {
+      return '#d8d8d8'
+    }
+  }
 
-    return (
-      <TouchableWithoutFeedback 
+  renderTextColor(){
+  
+    if (this.userIsSame()) {
+      return 'white'
+    } else {
+      return 'black'
+    }
+  }
+
+  renderJustification(){
+  
+    if (this.userIsSame()) {
+      return 'flex-end'
+    } else {
+      return 'flex-start'
+    }
+
+  }
+
+  userIsSame(){
+
+    const {message, realmUser} = this.props;
+
+    if (realmUser.identity === message.user.id) {
+      return true
+    } else {
+      return false
+    }
+
+  }
+
+
+  render() {
+    const { message, realmUser } = this.props;
+
+    let alignment =  this.renderJustification()
+    let backgroundColor = this.renderBackgroundColor()
+    let textColor = this.renderTextColor()
+
+    return (<View  style={{justifyContent:alignment, flexDirection:'row',
+    alignContent:'center',}}>
+      <TouchableWithoutFeedback
         onPress={this.onRowPress.bind(this)}>
-        <View style={{backgroundColor:'#0072C6', 
-        flex: 1, 
+        <View style={{backgroundColor:backgroundColor, 
+        maxWidth: '80%', 
+        alignSelf: 'flex-start',
+        paddingLeft:5,
+        paddingRight:5,
          margin:10,
-          borderRadius:10 }}>
-        <View>
-            <Text style={styles.titleStyle}>
+          borderRadius:20 }}>
+            <Text style={{
+                          fontSize: 14,
+                          padding: 10,
+                          color:textColor,
+                          flex:1
+                        }}>
               {message.text}
             </Text>
-            </View>
         </View>
       </TouchableWithoutFeedback>
+      </View>
     );
   }
 }
 
-const styles = {
-  titleStyle: {
-    fontSize: 14,
-    padding: 10,
-    color:'white',
-    flex:1
-  }
-};
 
 export default ListItem;
