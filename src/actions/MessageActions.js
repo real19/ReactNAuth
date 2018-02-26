@@ -102,17 +102,26 @@ export const messagesFetch = (user, selectedConversation) => {
 
     var conversation = realm.objects('Conversation').filtered(predicate)[0];
 
-    dispatch({ type: MESSAGES_FETCH_SUCCESS, payload: conversation.chatMessages });
-
+   
     console.log(conversation.length + ' conversations were found ');
+   
+    realm.objects('ChatMessage').addListener((conversations, changes) => {
 
-    // realm.objects('ChatMessage').addListener((conversations, changes) => {
+      console.log('conversations listeners are noticed a change ')
 
-    //   console.log('conversations listeners are noticed a change ')
+      // var conversation = realm.objects('Conversation').filtered(predicate)[0];
 
-    //  dispatch({ type: MESSAGES_FETCH_SUCCESS, payload: conversation.chatMessages });
+      // console.log("messages are " + conversation.chatMessages.count )
 
-    // })
+      var conversation = realm.objects('Conversation').filtered(predicate)[0];
+      // 
+        if (conversation){
+
+          dispatch({ type: MESSAGES_FETCH_SUCCESS, payload: conversation.chatMessages });
+        }      
+      
+
+    })
   }
 };
 

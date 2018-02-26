@@ -13,8 +13,12 @@ import {getRealm} from '../../Realmer';
 
 class MessageList extends Component {
 
-  static navigationOptions = {
-    title:  'Messages',
+  static navigationOptions = ({ navigation }) => {
+    const { params } = navigation.state;
+    
+    return {
+      title: params ? params.otherParam : 'Messages',
+    }
   };
 
   constructor(props){
@@ -29,8 +33,10 @@ class MessageList extends Component {
 
     if (this.realmUser) {
 
-      this.props.messagesFetch(this.realmUser, this.props.selectedConversation);
+      this.props.navigation.setParams({otherParam: this.props.selectedConversation.displayName})
 
+      this.props.messagesFetch(this.realmUser, this.props.selectedConversation);
+ 
 
     } else {
       // this.props.navigation.navigate('LoginForm');
