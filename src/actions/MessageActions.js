@@ -19,6 +19,9 @@ export const messageUpdate = ({ prop, value }) => {
 export const messageCreate = (message, selectedConversation, user, therealm) => {
 
 
+  return (dispatch) => {
+
+
   const config = {
     sync: {
       user: user,
@@ -66,6 +69,7 @@ export const messageCreate = (message, selectedConversation, user, therealm) => 
 
       conversation.chatMessages.push(chatMessage);
 
+    
       console.log("write succeeeded")
 
     });
@@ -75,9 +79,6 @@ export const messageCreate = (message, selectedConversation, user, therealm) => 
 
     console.log("write failed" + e.message)
   }
-
-  return (dispatch) => {
-
 
 
   };
@@ -102,13 +103,13 @@ export const messagesFetch = (user, selectedConversation) => {
 
     var conversation = realm.objects('Conversation').filtered(predicate)[0];
 
-    console.log(conversation.length + ' conversations were found ');
+    console.log(conversation.displayName + ' conversations were thus found ');
    
     realm.objects('ChatMessage').addListener((conversations, changes) => {
 
       console.log('conversations listeners are noticed a change ');
 
-      var conversation = realm.objects('Conversation').filtered(predicate)[0];
+  
       // 
         if (conversation){
 
@@ -124,12 +125,12 @@ export const messageSave = ({ name, uid }) => {
   const { currentUser } = firebase.auth();
 
   return (dispatch) => {
-    firebase.database().ref(`/users/${currentUser.uid}/messages/${uid}`)
-      .set({ name })
-      .then(() => {
-        dispatch({ type: MESSAGE_SAVE_SUCCESS });
+    // firebase.database().ref(`/users/${currentUser.uid}/messages/${uid}`)
+    //   .set({ name })
+    //   .then(() => {
+    //     dispatch({ type: MESSAGE_SAVE_SUCCESS });
 
-      });
+    //   });
   };
 };
 
@@ -137,10 +138,5 @@ export const messageDelete = ({ uid }) => {
   const { currentUser } = firebase.auth();
 
   return () => {
-    firebase.database().ref(`/users/${currentUser.uid}/messages/${uid}`)
-      .remove()
-      .then(() => {
-        //Actions.messageList({ type: 'reset' });
-      });
   };
 };

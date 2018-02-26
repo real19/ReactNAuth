@@ -46,8 +46,8 @@ class ConversationList extends Component {
       this.props.navigation.navigate('LoginForm');
     }
 
-    console.log('LIST is ');
-    console.log(this.props);
+  //  console.log('LIST is ');
+   // console.log(this.props);
 
     this.createDataSource(this.props);
   }
