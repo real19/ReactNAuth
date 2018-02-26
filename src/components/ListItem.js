@@ -38,19 +38,27 @@ class ListItem extends Component {
 
   userIsSame(){
 
-    const {message, realmUser} = this.props;
+    try {
 
-    if (realmUser.identity === message.user.id) {
+      const {theMessage, realmUser} = this.props;
+
+    if (realmUser.identity === theMessage.user.id) {
       return true
     } else {
       return false
     }
 
+    }catch (e){
+      return false
+    }
+
+    
+
   }
 
 
   render() {
-    const { message, realmUser } = this.props;
+    const { theMessage, realmUser } = this.props;
 
     let alignment =  this.renderJustification()
     let backgroundColor = this.renderBackgroundColor()
@@ -60,7 +68,8 @@ class ListItem extends Component {
     alignContent:'center',}}>
       <TouchableWithoutFeedback
         onPress={this.onRowPress.bind(this)}>
-        <View style={{backgroundColor:backgroundColor, 
+        <View 
+        style={{backgroundColor:backgroundColor, 
         maxWidth: '80%', 
         alignSelf: 'flex-start',
         paddingLeft:5,
@@ -73,7 +82,7 @@ class ListItem extends Component {
                           color:textColor,
                           flex:1
                         }}>
-              {message.text}
+              {theMessage.text}
             </Text>
         </View>
       </TouchableWithoutFeedback>

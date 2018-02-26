@@ -4,7 +4,7 @@ import { Card, CardSection, Input, Button, Spinner } from './common';
 import {connect} from 'react-redux';
 import {emailChanged, passwordChanged, loginUser, clearAll} from '../actions';
 import SignupForm from './SignupForm';
-import firebase from 'firebase';
+import Icon from 'react-native-fa-icons';
 
 
 class LoginForm extends Component {
@@ -58,8 +58,11 @@ class LoginForm extends Component {
 
         return ( 
            
-        <View> 
+        <View style = {{ alignContent: 'center', flex:1,
+                    justifyContent: 'center', backgroundColor:'#d8d8d8'}}> 
+          
             <Card>
+            <Icon style={{ color: "#d8d8d8", fontSize: 176, alignSelf: 'center', padding:10, }} name='comments' />
                 <CardSection>
                     <Input 
                     label="Email" 
@@ -85,7 +88,7 @@ class LoginForm extends Component {
                 <CardSection>
                      <Button 
                      onPress = {this.onSignupButtonPress.bind(this)}> 
-                     Don't have an account? Click here to Signup</Button>
+                     Signup</Button>
                 </CardSection>
             </Card>
             </View>

@@ -3,7 +3,7 @@ import { View, Text } from 'react-native';
 import { Card, CardSection, Input, Button, Spinner } from './common';
 import {connect} from 'react-redux';
 import {emailChanged, passwordChanged, signupUser} from '../actions';
-
+import Icon from 'react-native-fa-icons';
 
 
 class SignupForm extends Component {
@@ -47,21 +47,24 @@ class SignupForm extends Component {
 
     render (){
         return (
-            <View>
-            <Card>
+            <View style = {{ alignContent: 'center', flex:1,
+            justifyContent: 'center', backgroundColor:'#d8d8d8'}}> 
+  
+    <Card>
+    <Icon style={{ color: "#d8d8d8", fontSize: 176, alignSelf: 'center', padding:10, }} name='comments' />
                 
                 <CardSection>
-                    <Input label="Email" placeholder="Email" 
+                    <Input label="Email" placeholder="Email" autoCapitalize = "none"
                     onChangeText={this.onEmailChange.bind(this)} value = {this.props.email}/>
                 </CardSection>
 
                 <CardSection>
-                    <Input secureTextEntry label="Password" placeholder="Password" 
+                    <Input secureTextEntry label="Password" placeholder="Password" autoCapitalize = "none"
                     onChangeText={this.onPasswordChange.bind(this)} value = {this.props.password}/>
                 </CardSection>
                 
                 <CardSection>
-                    <Input secureTextEntry label="Confirm Password" placeholder="Confirm Password" 
+                    <Input secureTextEntry label="Confirm Password" placeholder="Confirm Password" autoCapitalize = "none"
                     onChangeText={this.onConfirmPasswordChange.bind(this)}/>
                 </CardSection>
                 

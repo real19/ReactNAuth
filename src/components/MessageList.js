@@ -37,12 +37,12 @@ class MessageList extends Component {
 
       this.props.messagesFetch(this.realmUser, this.props.selectedConversation);
  
-
+      this.createDataSource(this.props);
     } else {
       // this.props.navigation.navigate('LoginForm');
     }
 
-    this.createDataSource(this.props);
+  
   }
 
 
@@ -87,10 +87,13 @@ class MessageList extends Component {
     const {realm,  message, selectedConversation, user } = this.props;
 
     this.props.messageCreate(message, selectedConversation, user, realm);
+   
+    
   }
 
   renderRow(theMessage) {
-  return (<ListItem message = {theMessage}  realmUser = { Realm.Sync.User.current}/>);
+
+  return (<ListItem theMessage = {theMessage}  realmUser = { Realm.Sync.User.current}/>);
   }
 
   render() {
@@ -127,6 +130,7 @@ class MessageList extends Component {
             borderWidth: 1,
           }} >
             <TextInput
+             ref='chatInputMessage'
               style={{
                 flex: 8,
                 margin: 2,
