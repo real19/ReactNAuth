@@ -102,16 +102,11 @@ export const messagesFetch = (user, selectedConversation) => {
 
     var conversation = realm.objects('Conversation').filtered(predicate)[0];
 
-   
     console.log(conversation.length + ' conversations were found ');
    
     realm.objects('ChatMessage').addListener((conversations, changes) => {
 
-      console.log('conversations listeners are noticed a change ')
-
-      // var conversation = realm.objects('Conversation').filtered(predicate)[0];
-
-      // console.log("messages are " + conversation.chatMessages.count )
+      console.log('conversations listeners are noticed a change ');
 
       var conversation = realm.objects('Conversation').filtered(predicate)[0];
       // 

@@ -17,7 +17,7 @@ class MessageList extends Component {
     const { params } = navigation.state;
     
     return {
-      title: params ? params.otherParam : 'Messages',
+      title: params ? params.otherParam : '',
     }
   };
 
@@ -46,31 +46,31 @@ class MessageList extends Component {
   }
 
 
-removeListeners(){
+// removeListeners(){
 
-  const realm = getRealm(this.realmUser);
-}
+//   const realm = getRealm(this.realmUser);
+// }
 
 
 
-  addListener(){
+  // addListener(){
 
-    const realm = getRealm(this.realmUser);
+  //   const realm = getRealm(this.realmUser);
 
-    realm.objects('ChatMessage').addListener((conversations, changes) => {
+  //   realm.objects('ChatMessage').addListener((conversations, changes) => {
 
-      console.log(' listeners was added for  a change ')
+  //     console.log(' listeners was added for  a change ')
 
-      this.refs.chatList.scrollToEnd();
+  //     this.refs.chatList.scrollToEnd();
 
-    });
+  //   });
 
-  }
+  // }
 
   componentWillReceiveProps(nextProps) {
 
     this.createDataSource(nextProps);
-    this.refs.chatList.scrollToEnd();
+    // this.refs.chatList.scrollToEnd();
   }
 
   createDataSource({ messageList }) {
@@ -82,10 +82,6 @@ removeListeners(){
   }
 
 
-
-  componentDidMount() {
-
-  }
 
   onButtonPress() {
     const {realm,  message, selectedConversation, user } = this.props;
@@ -103,10 +99,15 @@ removeListeners(){
       <View style={{ backgroundColor: 'white', flex: 1, alignContent: 'flex-start',  }} >
 
 <View style={{ flex: 29, marginBottom: 10,  }}>
-          <ListView ref='chatList'
+          <ListView 
+          //ref='chatList'
             enableEmptySections
             dataSource={this.dataSource}
             renderRow={this.renderRow}
+            ref={ ( ref ) => this.scrollView = ref }
+    onContentSizeChange={ () => {        
+        this.scrollView.scrollToEnd( { animated: true } )
+    } }
           />
         </View>
   <View style={{
