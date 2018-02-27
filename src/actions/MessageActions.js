@@ -75,7 +75,7 @@ export const messageCreate = (message, selectedConversation, user, therealm) => 
         
         dispatch({type:MESSAGE_CREATE})
 
-       }, 500);
+       }, 1000);
 
     //  
 
