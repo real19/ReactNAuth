@@ -21,9 +21,6 @@ import ConversationListItem from './ConversationListItem';
 import Icon from 'react-native-fa-icons';
 import Realm from 'realm';
 
-import {realm} from '../../Realmer'
-
-
 
 class ConversationList extends Component {
 
@@ -35,7 +32,6 @@ class ConversationList extends Component {
 
     if (user) {
       
-
       this.props.loginUserSuccess(user, this.props.navigation);
       this.props.conversationsFetch(user);
 

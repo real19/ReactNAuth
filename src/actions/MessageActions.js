@@ -71,7 +71,13 @@ export const messageCreate = (message, selectedConversation, user, therealm) => 
     
       console.log("write succeeeded")
 
-    //  dispatch({type:MESSAGE_CREATE})
+      setTimeout(function(){ 
+        
+        dispatch({type:MESSAGE_CREATE})
+
+       }, 500);
+
+    //  
 
     });
 

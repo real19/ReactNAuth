@@ -13,7 +13,7 @@ import {
 import { NavigationActions } from 'react-navigation';
 import Realm from 'realm';
 import { Conversation, ChatMessage, User , newUUID} from '../../Realmer'
-import {conversationsFetch} from './ConversationActions'
+import { conversationsFetch } from './ConversationActions'
 
 export const clearAll = () => {
   return {
@@ -73,6 +73,9 @@ export const loginUserSuccess = (user, navigation) => {
   createRealm(user);
 
   navigation.goBack();
+
+  conversationsFetch(user);
+
   return {
     type: LOGIN_USER_SUCCESS,
     payload: user
@@ -182,7 +185,7 @@ const signupUserFail = (dispatch, message) => {
 
 const signupUserSuccess = (dispatch, user, navigation) => {
 
-  //conversationsFetch(user);
+  conversationsFetch(user);
 
   dispatch({
     type: SIGNUP_USER_SUCCESS,

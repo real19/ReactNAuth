@@ -15,6 +15,8 @@ class ProfilePage extends Component {
 
     render() {
 
+        const user = Realm.Sync.User.current;
+
         return (
             <View style={{
                 backgroundColor: 'white',
@@ -41,8 +43,8 @@ class ProfilePage extends Component {
 }
 
 const mapStateToProps = ({ auth }) => {
-    const { email, password, error, loading } = auth;
-    return { email, password, error, loading };
+    const { email, password, error, loading , user} = auth;
+    return { email, password, error, loading, user };
 };
 
 export default connect(mapStateToProps, null)(ProfilePage);

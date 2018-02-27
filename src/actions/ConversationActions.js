@@ -33,6 +33,8 @@ export const conversationCreate = ({ name }) => {
 
 export const conversationsFetch = (user) => {
 
+  console.log("Conversations fetch was called")
+
   return (dispatch) => {
 
     const config = {
@@ -76,14 +78,14 @@ export const conversationSave = ({ name, uid }) => {
 };
 
 export const conversationDelete = ({ uid }) => {
-  const { currentUser } = firebase.auth();
+  // const { currentUser } = firebase.auth();
 
   return () => {
-    firebase.database().ref(`/users/${currentUser.uid}/conversations/${uid}`)
-      .remove()
-      .then(() => {
-        //Actions.conversationList({ type: 'reset' });
-      });
+    // firebase.database().ref(`/users/${currentUser.uid}/conversations/${uid}`)
+    //   .remove()
+    //   .then(() => {
+    //     //Actions.conversationList({ type: 'reset' });
+    //   });
   };
 };
 

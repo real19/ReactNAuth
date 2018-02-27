@@ -28,6 +28,7 @@ class MessageList extends Component {
 
   componentWillMount() {
 
+    console.log("Component will mount was called")
 
     if (this.realmUser) {
 
@@ -43,8 +44,9 @@ class MessageList extends Component {
 
   componentWillReceiveProps(nextProps) {
 
+    console.log("Component will recieve props was called")
+
     this.createDataSource(nextProps);
-    // this.refs.chatList.scrollToEnd();
   }
 
   createDataSource({ messageList }) {
@@ -77,7 +79,6 @@ class MessageList extends Component {
 
 <View style={{ flex: 29, marginBottom: 10,  }}>
           <ListView 
-          //ref='chatList'
             enableEmptySections
             dataSource={this.dataSource}
             renderRow={this.renderRow}
@@ -130,8 +131,6 @@ class MessageList extends Component {
             </TouchableOpacity>
           </View>
         </View>
-
-
       </View>
     );
 
