@@ -1,5 +1,4 @@
 import Realm from 'realm';
-import firebase from 'firebase';
 import {Conversation, ChatMessage, User, newUUID} from './../../Realmer'
 
 import {
@@ -18,17 +17,17 @@ export const conversationUpdate = ({ prop, value }) => {
 };
 
 export const conversationCreate = ({ name }) => {
-  const { currentUser } = firebase.auth();
+  // const { currentUser } = firebase.auth();
 
-  console.log(`current user is ${currentUser.uid}`);
+  // console.log(`current user is ${currentUser.uid}`);
 
   return (dispatch) => {
-    firebase.database().ref(`/users/${currentUser.uid}/conversations`)
-      .push({ name })
-      .then(() => {
+    // firebase.database().ref(`/users/${currentUser.uid}/conversations`)
+    //   .push({ name })
+    //   .then(() => {
         dispatch({ type: CONVERSATION_CREATE });
        // Actions.conversationList({ type: 'reset' });
-      });
+      // });
   };
 };
 
@@ -64,15 +63,15 @@ export const conversationsFetch = (user) => {
 
 
 export const conversationSave = ({ name, uid }) => {
-  const { currentUser } = firebase.auth();
+  // const { currentUser } = firebase.auth();
 
   return (dispatch) => {
-    firebase.database().ref(`/users/${currentUser.uid}/conversations/${uid}`)
-      .set({ name})
-      .then(() => {
-        dispatch({ type: CONVERSATION_SAVE_SUCCESS });
+    // firebase.database().ref(`/users/${currentUser.uid}/conversations/${uid}`)
+    //   .set({ name})
+    //   .then(() => {
+    //     dispatch({ type: CONVERSATION_SAVE_SUCCESS });
         
-      });
+    //   });
   };
 };
 

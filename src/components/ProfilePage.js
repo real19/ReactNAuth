@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { View, Text, StatusBar, TextInput, Form, TouchableOpacity } from 'react-native';
 import { Card, CardSection, Input, Button, Spinner } from './common';
 import { connect } from 'react-redux';
-import firebase from 'firebase';
 import Icon from 'react-native-fa-icons';
 import Realm from 'realm';
 

@@ -1,5 +1,4 @@
 import Realm from 'realm';
-import firebase from 'firebase';
 import { Conversation, ChatMessage, User, newUUID, realm } from './../../Realmer'
 
 import {

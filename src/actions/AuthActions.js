@@ -10,7 +10,6 @@ import {
   CLEAR_ALL,  
   REALM_SUCCESS
 } from './types'
-import firebase from 'firebase';
 import { NavigationActions } from 'react-navigation';
 import Realm from 'realm';
 import { Conversation, ChatMessage, User , newUUID} from '../../Realmer'

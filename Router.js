@@ -34,17 +34,6 @@ export const ConversationsNavigator = StackNavigator({
 
 
 export const Tabs = TabNavigator(
-
-  // MessageList: {
-  //   screen: MessageList,
-  //   navigationOptions: {
-  //     title: 'Messages List',
-  //     tabBarLabel: 'Message List',
-  //     tabBarIcon: <Icon style={{ color: 'gray', fontSize: 28 }} name='comments' />
-  //     //)
-  //   },
-  // },
-
   {
     MessageList: {
       screen: ConversationsNavigator,

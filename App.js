@@ -10,9 +10,7 @@ import { Provider } from 'react-redux';
 import ReduxThunk from 'redux-thunk';
 import reducers from './src/reducers';
 import {RootNavigator, Tabs} from './Router';
-import config from './Firebase';
 import Realm from 'realm';
-import firebase from 'firebase';
 import {Conversation, ChatMessage, User} from './Realmer'
 
 type Props = {};
@@ -21,13 +19,6 @@ export default class App extends Component<Props> {
   
   componentWillMount(){
 
-                 
-    firebase.initializeApp(config);
-
-    // Open a Realm using the admin user
-
-
-      
   }
 
 
