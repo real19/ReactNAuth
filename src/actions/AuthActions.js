@@ -44,9 +44,6 @@ export const loginUser = ({ email, password, navigation }) => {
 
     Realm.Sync.User.login('http://0.0.0.0:9080', email, password).then(user => {
 
-
-
-     
       loginUserSuccess(user, navigation);
       // user is logged in
       // do stuff ...

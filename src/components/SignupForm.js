@@ -71,6 +71,7 @@ class SignupForm extends Component {
                 <Text style={styles.errorTextStyle}>{this.props.error}</Text>
                
                 <CardSection>
+                <Button onPress = {this.onCancelButtonPress.bind(this)}>Cancel </Button>
                     {this.renderButton()}
                 </CardSection>
 

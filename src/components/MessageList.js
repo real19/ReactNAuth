@@ -9,8 +9,6 @@ import ListItem from './ListItem';
 import Icon from 'react-native-fa-icons';
 import Realm from 'realm';
 
-import {getRealm} from '../../Realmer';
-
 class MessageList extends Component {
 
   static navigationOptions = ({ navigation }) => {
@@ -38,34 +36,10 @@ class MessageList extends Component {
       this.props.messagesFetch(this.realmUser, this.props.selectedConversation);
  
       this.createDataSource(this.props);
-    } else {
-      // this.props.navigation.navigate('LoginForm');
-    }
+    } 
 
   
   }
-
-
-// removeListeners(){
-
-//   const realm = getRealm(this.realmUser);
-// }
-
-
-
-  // addListener(){
-
-  //   const realm = getRealm(this.realmUser);
-
-  //   realm.objects('ChatMessage').addListener((conversations, changes) => {
-
-  //     console.log(' listeners was added for  a change ')
-
-  //     this.refs.chatList.scrollToEnd();
-
-  //   });
-
-  // }
 
   componentWillReceiveProps(nextProps) {
 
